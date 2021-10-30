@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block title %}
+{{nsDetail.name}} - Tienda
+{% endblock title %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/product.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/product_responsive.css') }}">
+{% endblock styles %}
+
+{% block body %}
+<!-- Product -->
+        <div class="home">
+			<div class="home_container d-flex flex-column align-items-center justify-content-end">
+				<div class="home_content text-center">
+					<div class="home_title">Detalles del producto</div>
+				</div>
+			</div>
+		</div>
+		<div class="product">
+			<div class="container">
+				<div class="row">
+					
+					<!-- Product Image -->
+					<div class="col-lg-6">
+						<div class="product_image_slider_container">
+							<div id="slider" class="flexslider">
+								<ul class="slides">
+									<li>
+										<img src="{{ nsDetail.picture }}" />
+									</li>
+								</ul>
+							</div>
+							
+						</div>
+					</div>
+
+					<!-- Product Info -->
+					<div class="col-lg-6 product_col">
+						<div class="product_info">
+							<div class="product_name">{{nsDetail.name}}</div>
+							<div class="product_category"><a href="/category/{{category.id}}">{{category.parcial}}</a></div>
+							<div class="product_price">{{nsDetail.price}}<span>.99</span>&#8378;</div>
+							<div class="product_category py-3">Stocks: {{nsDetail.stocks}} número</div>
+							<div class="product_buttons">
+								<div class="text-right d-flex flex-row align-items-start justify-content-start" >
+									<div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center" style="border-left:solid 1px #ededed">
+										<div><div><a href="/add_car/{{nsDetail.id}}"><img src="{{ url_for('static',filename='images/cart.svg') }}" class="svg" alt=""></a></div></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+{% endblock body %}
+
+{% block script %}
+<script src="{{ url_for('static',filename='js/product.js') }}"></script>
+{% endblock script %}

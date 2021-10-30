@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block title %}
+Tienda
+{% endblock title %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/cart.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/cart_responsive.css') }}">
+{% endblock styles %}
+
+{% block body%}
+<!-- Home -->
+		<div class="home">
+			<div class="home_container d-flex flex-column align-items-center justify-content-end">
+				<div class="home_content text-center">
+					<div class="home_title">Compras anteriores</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="cart_section">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="cart_container">
+							
+							<!-- Cart Bar -->
+							<div class="cart_bar">
+								<ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
+									<li class="mr-auto">Producto</li>
+									<li style="width:145px;">Fecha / hora de la transacción</li>
+									<li></li>
+									<li>Precio</li>
+									<li>Número</li>
+									<li>Total</li>
+								</ul>
+							</div>
+
+							<!-- Cart Items -->
+							{% for i in orders %}
+							<div class="cart_items">
+								<ul class="cart_items_list">
+
+									<!-- Cart Item -->
+									<li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
+										<div class="product d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+											<div><div class="product_image"><img src="{{ i.Trabajo }}" alt=""></div></div>
+											<div class="product_name_container">
+												<div class="product_name"><a href="product.html">{{i.Nombre}}</a></div>
+											</div>
+										</div>
+										<div class="product_total product_text" style="width:250px;">{{i.Fecha}}</div>
+										<div class="product_price product_text">{{i.Precio}}</div>
+										<div class="product_quantity_container">
+											<div class="product_quantity ml-lg-auto mr-lg-auto text-center">
+												<span class="product_text product_num">{{i.Numero}}</span>
+											</div>
+										</div>
+										<div class="product_total product_text"><span>Total: </span>{{i.Total}}</div>
+									</li>
+								</ul>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+{% endblock body %}
+
+{% block script %}
+<script src="{{ url_for('static',filename='js/cart.js') }}"></script>
+{% endblock script %}

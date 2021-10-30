@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+{% block title %}
+Tienda
+{% endblock title %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/cart.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/cart_responsive.css') }}">
+{% endblock styles %}
+
+{% block body %}
+<!-- Home -->
+		<div class="home">
+			<div class="home_container d-flex flex-column align-items-center justify-content-end">
+				<div class="home_content text-center">
+					<div class="home_title">Carrito</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="cart_section">
+			<div class="container">
+				<div class="row">
+					{% if add_car != []%}
+					<div class="col">
+						<div class="cart_container">
+							
+							<!-- Cart Bar -->
+							<div class="cart_bar">
+								<ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
+									<li class="mr-auto">Producto</li>
+									<li></li>
+									<li></li>
+									<li>Precio</li>
+									<li>Número</li>
+									<li>Total</li>
+								</ul>
+							</div>
+
+							<!-- Cart Items -->
+							{% for i in add_car %}
+							<div class="cart_items">
+								<ul class="cart_items_list">
+
+									<!-- Cart Item -->
+									<li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
+										<div class="product d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+											<div><div class="product_image"><img src="{{ i.Imagen }}" alt=""></div></div>
+											<div class="product_name_container">
+												<div class="product_name"><a href="/ns/{{i.id}}">{{i.Nombre}}</a></div>
+											</div>
+										</div>
+										<div class="product_color product_text" style="width:70px;">
+										<form action="/nsUpdate/{{i.id}}" method="POST">
+                                            <button class="btn btn-success">Actualizar</button>
+									    </div>
+										<div class="product_size product_text">
+                                            <div class="btn btn-danger"><a href="/nsDelete/{{i.id}}" style="color:white;">Eliminar</a></div>
+                                        </div>
+										<div class="product_price text-right" style="margin-right:50px;"><span>Precio: </span>{{i.Precio}} &#8378;</div>
+										<div class="product_quantity_container">
+											<div class="product_quantity ml-lg-auto mr-lg-auto text-center">
+												<input type="text" name="numero" value="{{i.Numero}}" style="width:20px; margin-top:5px; margin-left:3px; border:0px;">
+												</form>
+											</div>
+										</div>
+										<div class="product_total product_text"><span>Total: </span>{{i.Total}} &#8378;</div>
+									</li>
+								</ul>
+							</div>
+							{% endfor %}
+							<!-- Cart Buttons -->
+							<div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
+								<div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
+									<div class="button button_clear trans_200"><a href="/cartbosalt">Vaciar carrito</a></div>
+									<div class="button button_continue trans_200"><a href="/verify">Verificar</a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% else:%}
+						<div class="col-md-12 checkout_title text-center" style="font-size:40px;">Carrito vacío!</div>
+						<div class="col-md-12 checkout_title text-center" style="font-size:30px; color:#5a5a5a;">Empiece a comprar ahora</div>
+						<a href="/"class="col-md-12"><button type="submit" class="btn btn-success col-md-12 checkout_button trans_200" style="border:0px;">Página de inicio</button></a>
+					{% endif %}	
+				</div>
+			</div>
+		</div>
+
+
+{% endblock body %}
+
+{% block script %}
+<script src="{{ url_for('static',filename='js/cart.js') }}"></script>
+{% endblock script %}
